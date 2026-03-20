@@ -11,8 +11,26 @@ import resources from '@/data/resources.json';
 
 const VIDEOS_PER_SUBJECT_PER_DAY = 2;
 const ACTIVE_SUBJECTS_COUNT = 3;
+const DEFAULT_VIDEOS_PER_DAY = ACTIVE_SUBJECTS_COUNT * VIDEOS_PER_SUBJECT_PER_DAY; // 6
 
-function buildSchedule(subjectOrder: number[]) {
+/**
+ * Count total working days (Mon–Sat) between two Date objects (exclusive end).
+ */
+function countWorkingDays(start: Date, end: Date): number {
+    let days = 0;
+    const curr = new Date(start);
+    curr.setHours(0, 0, 0, 0);
+    const endMidnight = new Date(end);
+    endMidnight.setHours(0, 0, 0, 0);
+    while (curr < endMidnight) {
+        if (curr.getDay() !== 0) days++;
+        curr.setDate(curr.getDate() + 1);
+    }
+    return days;
+}
+
+function buildSchedule(subjectOrder: number[], startDate: Date, endDate: Date | null) {
+    // Build per-subject video queues
     const queues = subjectOrder.map(subjectIdx => {
         const subject = resources[subjectIdx];
         const videos = ((subject?.categories as any)?.['Youtube Videos'] || []).map((v: any) => ({
@@ -20,6 +38,22 @@ function buildSchedule(subjectOrder: number[]) {
         }));
         return { subjectIdx, name: subject?.name || 'Unknown', videos };
     });
+
+    // Decide how many videos to assign per day
+    let videosPerDay = DEFAULT_VIDEOS_PER_DAY;
+    if (endDate && endDate > startDate) {
+        const availableWorkingDays = countWorkingDays(startDate, endDate);
+        if (availableWorkingDays > 0) {
+            const totalVideos = queues.reduce((sum, q) => sum + q.videos.length, 0);
+            // At least DEFAULT_VIDEOS_PER_DAY, but increase if needed to fit the window
+            videosPerDay = Math.max(DEFAULT_VIDEOS_PER_DAY, Math.ceil(totalVideos / availableWorkingDays));
+        }
+    }
+
+    // Determine videos per subject per day based on active subjects
+    // We distribute videosPerDay evenly across ACTIVE_SUBJECTS_COUNT active subjects
+    const vidPerSubject = Math.max(1, Math.round(videosPerDay / ACTIVE_SUBJECTS_COUNT));
+
     const positions = queues.map(() => 0);
     const schedule: Array<Array<{ url: string; text: string; subject: string; subjectIdx: number }>> = [];
     let windowStart = 0;
@@ -32,7 +66,7 @@ function buildSchedule(subjectOrder: number[]) {
         if (activeIndices.length === 0) break;
         for (const qi of activeIndices) {
             const queue = queues[qi];
-            for (let v = 0; v < VIDEOS_PER_SUBJECT_PER_DAY && positions[qi] < queue.videos.length; v++) {
+            for (let v = 0; v < vidPerSubject && positions[qi] < queue.videos.length; v++) {
                 dayVideos.push(queue.videos[positions[qi]]);
                 positions[qi]++;
             }
@@ -54,7 +88,16 @@ export default function PlannerPage() {
     const { preferences } = usePreferences();
 
     const startDate = useMemo(() => new Date(preferences.startDate), [preferences.startDate]);
-    const schedule = useMemo(() => buildSchedule(preferences.subjectOrder), [preferences.subjectOrder]);
+    const endDate = useMemo(() => preferences.endDate ? new Date(preferences.endDate) : null, [preferences.endDate]);
+    const schedule = useMemo(() => buildSchedule(preferences.subjectOrder, startDate, endDate), [preferences.subjectOrder, startDate, endDate]);
+
+    // Days remaining until endDate
+    const daysRemaining = useMemo(() => {
+        if (!endDate) return null;
+        const todayMidnight = new Date(today); todayMidnight.setHours(0, 0, 0, 0);
+        const endMidnight = new Date(endDate); endMidnight.setHours(0, 0, 0, 0);
+        return Math.ceil((endMidnight.getTime() - todayMidnight.getTime()) / (1000 * 60 * 60 * 24));
+    }, [endDate]);
 
     const calculateWorkingDays = (targetDate: Date) => {
         let days = 0;
@@ -183,8 +226,23 @@ export default function PlannerPage() {
                                 <span className="text-4xl mb-3 block">📅</span>
                                 <h1 className="text-3xl font-bold text-[var(--notion-text)]">Study Planner</h1>
                                 <div className="flex items-center gap-2 mt-2 flex-wrap">
-                                    <span className="text-xs px-2 py-0.5 rounded bg-[var(--notion-blue-bg)] text-[var(--notion-blue)] font-medium">3 subjects × 2 videos/day</span>
+                                    <span className="text-xs px-2 py-0.5 rounded bg-[var(--notion-blue-bg)] text-[var(--notion-blue)] font-medium">Adaptive schedule</span>
                                     <span className="text-xs px-2 py-0.5 rounded bg-[var(--notion-purple-bg)] text-[var(--notion-purple)] font-medium">Spaced repetition</span>
+                                    {daysRemaining !== null && (
+                                        <span className={`text-xs px-2 py-0.5 rounded font-medium ${
+                                            daysRemaining < 0
+                                                ? 'bg-[var(--notion-red-bg)] text-[var(--notion-red)]'
+                                                : daysRemaining <= 30
+                                                    ? 'bg-[var(--notion-orange-bg)] text-[var(--notion-orange)]'
+                                                    : 'bg-[var(--notion-green-bg)] text-[var(--notion-green)]'
+                                        }`}>
+                                            {daysRemaining < 0
+                                                ? `⚠️ Deadline passed ${Math.abs(daysRemaining)}d ago`
+                                                : daysRemaining === 0
+                                                    ? '🎯 Exam day!'
+                                                    : `🎯 ${daysRemaining}d until deadline`}
+                                        </span>
+                                    )}
                                 </div>
                                 {activeSubjects.length > 0 && (
                                     <div className="flex gap-1.5 flex-wrap mt-3">

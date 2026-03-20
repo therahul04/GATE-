@@ -10,9 +10,10 @@ import { ArrowUp, ArrowDown, LogOut, Save } from 'lucide-react';
 
 export default function ProfilePage() {
     const { user, logout } = useAuth();
-    const { preferences, setSubjectOrder, setStartDate } = usePreferences();
+    const { preferences, setSubjectOrder, setStartDate, setEndDate } = usePreferences();
     const [localOrder, setLocalOrder] = useState<number[]>(preferences.subjectOrder);
     const [localStartDate, setLocalStartDate] = useState(preferences.startDate);
+    const [localEndDate, setLocalEndDate] = useState(preferences.endDate);
     const [saving, setSaving] = useState(false);
     const [saved, setSaved] = useState(false);
 
@@ -30,6 +31,7 @@ export default function ProfilePage() {
         try {
             await setSubjectOrder(localOrder);
             await setStartDate(localStartDate);
+            await setEndDate(localEndDate);
             setSaved(true);
             setTimeout(() => setSaved(false), 3000);
         } catch (error) {
@@ -71,17 +73,48 @@ export default function ProfilePage() {
                             </div>
                         )}
 
-                        {/* Start Date */}
+                        {/* Start & End Date */}
                         <div className="mb-8">
-                            <h2 className="text-base font-semibold text-[var(--notion-text)] mb-1 flex items-center gap-2">📅 Start Date</h2>
-                            <p className="text-sm text-[var(--notion-text-secondary)] mb-3">When did you start (or plan to start) your GATE preparation?</p>
-                            <input
-                                type="date"
-                                value={localStartDate}
-                                onChange={(e) => { setLocalStartDate(e.target.value); setSaved(false); }}
-                                className="rounded-md px-3 py-2 text-sm text-[var(--notion-text)] bg-[var(--notion-bg)] focus:outline-none focus:ring-2 focus:ring-[var(--notion-accent)] w-48"
-                                style={{ border: '1px solid var(--notion-border-strong)' }}
-                            />
+                            <h2 className="text-base font-semibold text-[var(--notion-text)] mb-1 flex items-center gap-2">📅 Study Period</h2>
+                            <p className="text-sm text-[var(--notion-text-secondary)] mb-4">Set your preparation start and target end date. The planner will adapt the daily schedule to fit within this window.</p>
+                            <div className="flex flex-wrap gap-6">
+                                <div>
+                                    <label className="block text-xs font-medium text-[var(--notion-text-secondary)] mb-1.5">Start Date</label>
+                                    <input
+                                        type="date"
+                                        value={localStartDate}
+                                        onChange={(e) => { setLocalStartDate(e.target.value); setSaved(false); }}
+                                        className="rounded-md px-3 py-2 text-sm text-[var(--notion-text)] bg-[var(--notion-bg)] focus:outline-none focus:ring-2 focus:ring-[var(--notion-accent)] w-48"
+                                        style={{ border: '1px solid var(--notion-border-strong)' }}
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-xs font-medium text-[var(--notion-text-secondary)] mb-1.5">End Date (Exam / Target)</label>
+                                    <input
+                                        type="date"
+                                        value={localEndDate}
+                                        min={localStartDate || undefined}
+                                        onChange={(e) => { setLocalEndDate(e.target.value); setSaved(false); }}
+                                        className="rounded-md px-3 py-2 text-sm text-[var(--notion-text)] bg-[var(--notion-bg)] focus:outline-none focus:ring-2 focus:ring-[var(--notion-accent)] w-48"
+                                        style={{ border: '1px solid var(--notion-border-strong)' }}
+                                    />
+                                </div>
+                            </div>
+                            {localEndDate && localStartDate && localEndDate <= localStartDate && (
+                                <p className="text-xs text-[var(--notion-red)] mt-2">⚠️ End date must be after start date.</p>
+                            )}
+                            {localEndDate && localStartDate && localEndDate > localStartDate && (() => {
+                                const start = new Date(localStartDate);
+                                const end = new Date(localEndDate);
+                                const totalDays = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
+                                const sundays = Math.floor(totalDays / 7);
+                                const workingDays = totalDays - sundays;
+                                return (
+                                    <p className="text-xs text-[var(--notion-text-secondary)] mt-2">
+                                        📊 <strong>{workingDays}</strong> working days available for study.
+                                    </p>
+                                );
+                            })()}
                         </div>
 
                         {/* Subject Order */}
