@@ -1,0 +1,110 @@
+[
+    {
+        "id": "em-1",
+        "subject": "Electricity and Magnetism",
+        "front": "What is Gauss's Law?",
+        "back": "∮ D⃗·dS⃗ = Q_enclosed (Total electric flux through a closed surface equals the enclosed charge)"
+    },
+    {
+        "id": "em-2",
+        "subject": "Electricity and Magnetism",
+        "front": "Self-inductance of a solenoid?",
+        "back": "L = μ₀N²A/l (where N = turns, A = area, l = length)"
+    },
+    {
+        "id": "ckt-1",
+        "subject": "Electrical Circuits and Machines",
+        "front": "Resonant frequency of a series RLC circuit?",
+        "back": "f₀ = 1 / (2π√(LC))"
+    },
+    {
+        "id": "ckt-2",
+        "subject": "Electrical Circuits and Machines",
+        "front": "Maximum Power Transfer Theorem condition?",
+        "back": "ZL = ZS* (Load impedance = complex conjugate of source impedance)"
+    },
+    {
+        "id": "ss-1",
+        "subject": "Signals and Systems",
+        "front": "Nyquist Sampling Theorem?",
+        "back": "fs ≥ 2fmax (Sampling frequency must be at least twice the maximum frequency)"
+    },
+    {
+        "id": "ss-2",
+        "subject": "Signals and Systems",
+        "front": "Convolution in frequency domain?",
+        "back": "x(t) * h(t) ↔ X(f)·H(f) (Convolution in time = Multiplication in frequency)"
+    },
+    {
+        "id": "cs-1",
+        "subject": "Control Systems",
+        "front": "Steady-state error for a Type-0 system with step input?",
+        "back": "ess = 1 / (1 + Kp), where Kp = lim(s→0) G(s)H(s)"
+    },
+    {
+        "id": "cs-2",
+        "subject": "Control Systems",
+        "front": "Gain Margin definition?",
+        "back": "GM = 1/|G(jω)H(jω)| at phase crossover frequency (where phase = -180°)"
+    },
+    {
+        "id": "ae-1",
+        "subject": "Analog Electronics",
+        "front": "Voltage gain of an inverting op-amp?",
+        "back": "Av = -Rf/Rin"
+    },
+    {
+        "id": "ae-2",
+        "subject": "Analog Electronics",
+        "front": "CMRR (Common Mode Rejection Ratio)?",
+        "back": "CMRR = |Ad/Acm| = 20 log₁₀(Ad/Acm) dB"
+    },
+    {
+        "id": "de-1",
+        "subject": "Digital Electronics",
+        "front": "How many bits needed for an N-bit ADC resolution?",
+        "back": "Resolution = Vref / (2^N - 1), so 2^N levels for N bits"
+    },
+    {
+        "id": "de-2",
+        "subject": "Digital Electronics",
+        "front": "De Morgan's Theorem?",
+        "back": "(A·B)' = A' + B' and (A+B)' = A'·B'"
+    },
+    {
+        "id": "meas-1",
+        "subject": "Measurements",
+        "front": "Wheatstone Bridge balance condition?",
+        "back": "R1/R2 = R3/R4 (At balance, galvanometer shows zero deflection)"
+    },
+    {
+        "id": "meas-2",
+        "subject": "Measurements",
+        "front": "Error propagation for f = A × B?",
+        "back": "Δf/f = √((ΔA/A)² + (ΔB/B)²) — relative errors add in quadrature"
+    },
+    {
+        "id": "sens-1",
+        "subject": "Sensors and Industrial Instrumentation",
+        "front": "RTD resistance-temperature relationship?",
+        "back": "R(T) = R₀(1 + αT) for Platinum RTD (α ≈ 0.00385/°C)"
+    },
+    {
+        "id": "sens-2",
+        "subject": "Sensors and Industrial Instrumentation",
+        "front": "4-20 mA transmitter: what does 4 mA represent?",
+        "back": "4 mA = 0% of measured range (live zero allows wire break detection)"
+    },
+    {
+        "id": "comm-1",
+        "subject": "Communication and Optical Instrumentation",
+        "front": "FM bandwidth using Carson's rule?",
+        "back": "BW = 2(Δf + fm), where Δf = frequency deviation, fm = modulating frequency"
+    },
+    {
+        "id": "math-1",
+        "subject": "Engineering Mathematics",
+        "front": "Eigenvalue equation?",
+        "back": "det(A - λI) = 0, then Ax = λx (where λ = eigenvalue, x = eigenvector)"
+    }
+]

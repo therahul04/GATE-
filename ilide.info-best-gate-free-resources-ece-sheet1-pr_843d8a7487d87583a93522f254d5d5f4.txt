@@ -1,0 +1,68 @@
+﻿ECE 
+
+Maths and Aptitude (Common for All)
+SUBJECT NAME LINK
+Maths (for all) https://practicepaper.in/engineering-mathematics-full-course
+Complete Maths (Hindi) https://www.youtube.com/playlist?list=PLCRkxr-xpkfYeSoxm7BurehfXvgodtkR3
+Complete Maths (English) https://www.youtube.com/playlist?list=PLb2wGSuEdRG_yZkx4r7vmePDx-AqTCuTF
+Subject Specific For Maths:
+Linear Algebra, Differential Calculus(English) https://www.youtube.com/playlist?list=PLPvaSRcEQh4lykk65o_hVsgMooedWucW5
+Integral Calculus (English) https://www.youtube.com/playlist?list=PLPvaSRcEQh4kkiiUYgmprbor5BcT5_PPW
+Probability (English) https://www.youtube.com/playlist?list=PLhLZ_zxDsyOIKbQfKFM05BLYRhUZ7JP-M
+
+Aptitude: 
+Complete Aptitude https://www.youtube.com/playlist?list=PLgF7lRh8Xb_WWuQ39i48DruAyzb_voYYD
+Aptitude (Hinglish) https://www.youtube.com/playlist?list=PLvTTv60o7qj_ZT2pXjgXxue0AlgkpH0ZO
+
+Core Subjects
+Core Subjects Link
+Network Theory
+Youtube Playlist #1 https://www.youtube.com/playlist?list=PLBlnK6fEyqRgLR-hMp7wem-bdVN1iEhsh
+Youtube Playlist #2 https://www.youtube.com/playlist?list=PLgzsL8klq6DJ6fwXWK4TN9T0flIRuVsAb
+
+Signals and Systems
+Youtube Playlist #1 https://www.youtube.com/playlist?list=PLBlnK6fEyqRhG6s3jYIU48CqsT5cyiDTO
+
+Digital Electronics
+Youtube Playlist #1 https://www.youtube.com/playlist?list=PLBlnK6fEyqRjMH3mWf6kwqiTbT798eAOm
+
+EDC
+Youtube playlist #1 https://www.youtube.com/playlist?list=PLs5_Rtf2P2r75okkE2V9oXbwJI-8m-63Q
+
+Control System 
+Youtube Playlist # 1 https://www.youtube.com/playlist?list=PLBlnK6fEyqRhqzJT87LsdQKYZBC93ezDo
+
+Analog Electronics
+Youtube Playlist #1 https://www.youtube.com/playlist?list=PLs5_Rtf2P2r5MplAOADz3fTWIyBZTkGbB
+
+EMFT
+Youtube Playlist #2 https://www.youtube.com/playlist?list=PLs5_Rtf2P2r7V6SAHIh95m3hP1bQ1OXor
+
+NPTEL ECE GATE Portal https://gate.nptel.ac.in/video.php?branchID=3&cid=1
+
+
+
+Best Standard Referance Books 
+Subject Name Book Name
+Network Theory Fundamentals of Electric Circuits, Alexander & Sadiku
+Control Systems Modern Control Engineering, Ogata / Automatic Control Systems Benhamin C.Kuo
+Signals & Systems Signals and Systems P.Ramesh Babu
+Digital Circuits Digital Logic & Computer Design, M. Morris Mano
+Electrical Machines Electrical Machinery, Dr. P.S. Bimbhra
+Power Electronics Power Electronics, Daniel W. Hart
+EMT Principles of ElectroMagnetics, Mathew N.O. Sadiku 
+Communication Systems Communications Systems Engineering, John G. Proakis
+Power Systems Elements of Power System Analysis, William D. Stevenson Jr
+Measurement & Instrumentation A Course in Electrical And Electronic Measurements and Instrumentation
+EDC Solid State Electronic Devices, Ben G. Streetman & Sanjay Kumar Banerjee
+Analog Circuits Microelectronic Circuits, Adel S. Sedra
+
+Free Previous Year Questions
+
+Honorable Mention https://practicepaper.in/
+
+This website has complete free Previous Year Questions Organised Topic wise with Solution
+Previous Year Question Paper (2007 to 2025) https://drive.google.com/drive/folders/1Y8-Iek4nLgbF4DemWMyZ_NeXqcBEJUWz?usp=sharing
+PYQ Paper - Free Solutions https://gate.nptel.ac.in/departments.php?c_id=2
+
+Note: NPTEL has video solutions from year 2012 to 2021. One can access it with topic and as well as year. Only drawback is it doesn't have aptitude.
